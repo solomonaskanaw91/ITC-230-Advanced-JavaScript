@@ -1,0 +1,19 @@
+{
+  "name": "itc230",
+  "version": "1.0.0",
+  "description": "My itc230 app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solomonaskanaw91/ITC-230-Advanced-JavaScript.git"
+  },
+  "author": "Solomon B. Askanaw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/solomonaskanaw91/ITC-230-Advanced-JavaScript/issues"
+  },
+  "homepage": "https://github.com/solomonaskanaw91/ITC-230-Advanced-JavaScript#readme"
+}
