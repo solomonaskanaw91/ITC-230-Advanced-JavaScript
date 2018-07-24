@@ -1,75 +1,51 @@
-var qs = require("querystring");
-var http = require("http"), fs = require('fs');
-var coffee = require('./lib/module.js');
+'use strict'
 
-function serveStatic(res, path, contentType, responseCode){
-  if(!responseCode) responseCode = 200;
-  console.log(__dirname + path);
-  fs.readFile(__dirname + path, function(err, data){
-      if(err){
-        res.writeHead(500, {'Content-Type': 'text/plain'});
-        res.end('Internal Server Error');
-      }
-      else{
-        res.writeHead(responseCode, {'Content-Type': contentType});
-        res.end(data);
-      }
-  });
-}
+let coffee = require("./lib/module.js");
 
-http.createServer(function(req,res){
-  console.log('createServer got request');
-  let url = req.url.split("?");  
-  let query = qs.parse(url[1]); // convert query string to object
+const express = require("express");
+const app = express();
 
-             console.log( JSON.stringify(query) + "\n");
-  let path = url[0].toLowerCase();
-  /////////Now come the routes for the paths ("/"","about","getAll","delete","all")
-  /////////Make sure the browser will render the views to the broswer
-  switch(path) {
-    case '/': 
-      serveStatic(res, '/public/home.html', 'text/html');
-      break;
-      
-    case '/about':
-      res.writeHead(200, {'Content-Type': 'text/plain'});
-      res.end('About:  \nWeb application \Node.js web application. ');
-      break;
- 
-      case '/getall':                 
-      res.writeHead(200, {'Content-Type': 'text/plain'});
-      let found4 = coffee.getAll();         
-      let results4 = (found4) ? JSON.stringify(found4) : "Not found";
-      res.write(results4 + "\n");
-      res.end("\n");
-      break;
-      
-    
-    case '/delete':
-      res.writeHead(200, {'Content-Type': 'text/plain'});
+app.set('port', process.env.PORT || 3000);
+app.use(express.static(__dirname + '/public')); // allows direct navigation to static files
+app.use(require("body-parser").urlencoded({extended: true}));
 
-      coffee.delete(query.type); 
-      let found5   = coffee.getAll();
-      let results5 = (found5) ? JSON.stringify(found5) : "Not found";
-      break;
-      
-    case '/add':
-      res.writeHead(200, {'Content-Type': 'text/plain'});
+let handlebars =  require("express-handlebars");
+app.engine(".html", handlebars({extname: '.html'}));
+app.set("view engine", ".html");
 
-      coffee.add(query); 
-        
-      let found6   = coffee.getAll();
-      let results6 = (found6) ? JSON.stringify(found6) : "Not found";
-      res.end(results6 + "\n \n"); 
-      break;
+// send static file as response
+app.get('/', function(req,res){
+    res.type('text/html');
+    res.sendFile(__dirname + '/public/home.html'); 
+});
 
-    default:
-      res.writeHead(404, {'Content-Type': 'text/plain'});
-      res.end('404: ERROR   Page not found.  ');
-  }
-  
-}).listen(process.env.PORT || 3000);
-console.log('after createServer');
-/////////////////////////////////////////////////////////////////////////
-//////////Please console.log the entire switch durning the testing phase.
-////////////////////////////////////////////////////////////////////////
+// send plain text response
+app.get('/about', function(req,res){
+    res.type('text/plain');
+    res.send('About page');
+});
+
+// handle GET 
+app.get('/delete', function(req,res){
+    let result = coffee.delete(req.query.title); // delete book object
+    res.render('delete', {title: req.query.title, result: result});
+});
+
+// handle POST
+app.post('/get', function(req,res){
+    console.log(req.body)
+    var header = 'Searching for: ' + req.body.title + '<br>';
+    var found = coffee.get(req.body.title);
+    res.render("details", {title: req.body.title, result: found});
+});
+
+// define 404 handler
+app.use(function(req,res) {
+    res.type('text/plain'); 
+    res.status(404);
+    res.send('404 - Not found');
+});
+
+app.listen(app.get('port'), function() {
+    console.log('Express started');    
+});
