@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>Report Coffee Results</title>
+</head>
+<body>
+	<h2>Details for {{Title}}</h2>
+  {{#if result}}
+    
+    <li>Type: {{ result.attributes.Title }}
+    <li>Brand: {{ result.attributes.Artist }}
+    <li>Price: {{ result.attributes.Description }}
+    <li>Address: {{ result.attributes.ADDRESS }}
+    
+    <!--Make form to get data and report calculation-->
+    <form id = 'delete-art-title' method="POST" action='/delete-art-title'>
+      <!-- Delete Title Input -->
+      <div class='inputs'>
+      <label for='deleteresult'>Delete {{Title}}?</label>
+      <input id='deleteresult' name='deleteresul' type=text value={{Title}} />
+      <input id='delete' type='submit' value='Delete' />
+      </div>
+    </form>      
+  {{else}}
+    {{ Title }} not found.
+  {{/if}}
+  
+
+</div>
+
+{{{body}}}
+
+</body>
+</html>
