@@ -1,0 +1,53 @@
+{
+    "_id": {
+        "$oid": "5b6a3420e7179a3bb4598675"
+    },
+    "title": "pepermint mocha",
+    "price": "3.75",
+    "brand": "Seattle's best",
+    "size": "8",
+    "temputure": "175F"
+}
+{
+    "_id": {
+        "$oid": "5b6a343ce7179a3bb4598698"
+    },
+    "title": "Green Mocha",
+    "price": "2",
+    "brand": "Capitol Coffee Works",
+    "size": "12",
+    "temputure": "155F"
+}
+
+{
+    "_id": {
+        "$oid": "5b6a344ce7179a3bb45986a1"
+    },
+    "title": "Lattee",
+    "price": "5",
+    "brand": "Costco",
+    "size": "12",
+    "temputure": "171F"
+}
+
+{
+    "_id": {
+        "$oid": "5b6a345be7179a3bb45986a5"
+    },
+    "title": "Americano",
+    "price": "3.75",
+    "brand": "Wired",
+    "size": "10",
+    "temputure": "165F"
+}
+
+{
+    "_id": {
+        "$oid": "5b6a3467e7179a3bb45986ab"
+    },
+    "title": "Frappé",
+    "price": "5.90",
+    "brand": "McDonalds",
+    "size": "8",
+    "temputure": "150F"
+}

@@ -1,0 +1,14 @@
+<html>
+<body>
+<h2>Home</h2>
+<form method="POST" action="/details">
+    <input type="text" name="title" placeholder="title" required maxlength="100">
+    <button>Search</button>
+</form>
+<hr>
+<h3>Coffee</h3>
+{{#each coffee}}
+    <li><a href="/details?title={{title}}">{{title}}</a></li>
+{{/each}}
+</body>
+</html>
