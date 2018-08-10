@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var connectionString = "mongodb://solomon:asasasas11@ds239911.mlab.com:39911/mongodb_sandbox";
 mongoose.connect(connectionString);
  
+
+
 var conn = mongoose.connection; 
 conn.on('error', console.error.bind(console, 'connection error:'));
 
